@@ -34,8 +34,9 @@ export class HomeComponent implements AfterViewInit {
   @ViewChild(MatSort) sort!: MatSort;
 
   ngAfterViewInit(): void {
-
+    this.LoadUser();
   }
+
   LoadUser() {
     this.service.GetAllJobs().subscribe(res => {
       this.list = res;
@@ -46,22 +47,26 @@ export class HomeComponent implements AfterViewInit {
   }
   displayedColumns: string[] = ['job_number', 'job_title', 'job_start_date', 'job_notes', 'number_of_openings', 'action'];
 
-  adduser() {
+  addJob() {
     this.isList = false;
     console.log('New');
     this._router.navigate([`new`]);
   }
-  updateuser(id: any) {
+  updateJob(id: any) {
     this.isList = false;
     console.log(id);
     this._router.navigate([`${id}`]);
   }
-  // viewuser(id: any) {
-  //   console.log(id);
-  //   this._router.navigate([`view/${id}`]);
-  // }
-  removeuser(id: any) {
+  removeJob(id: any) {
     console.log(id);
+    this.service.DeleteJobsById(id).subscribe(result => {
+      this.toastr.success('','Deleted successfully');
+      this._router.navigate(['/'])
+    },
+    err =>{
+    console.log(err);
+      this.toastr.error(err,'');
+    });
   }
   
 }

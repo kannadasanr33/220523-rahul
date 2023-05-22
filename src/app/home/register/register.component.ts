@@ -63,14 +63,22 @@ export class RegisterComponent implements OnInit {
   proceedregister() {
     if (this.registerform.valid) {
       if(this.isEdit) {
-        this.service.UpdateJobsById(this.registerform.value.id, this.registerform.value).subscribe(result => {
+        this.service.UpdateJobsById(this.itemId, this.registerform.value).subscribe(result => {
           this.toastr.success('','Updated successfully')
           this.router.navigate(['/'])
+        },
+        err =>{
+        console.log(err);
+          this.toastr.error(err,'');
         });
       } else {
         this.service.RegisterJobs(this.registerform.value).subscribe(result => {
           this.toastr.success('','Registered successfully')
           this.router.navigate(['/'])
+        },
+        err =>{
+        console.log(err);
+          this.toastr.error(err,'');
         });
       }    
     } else {
