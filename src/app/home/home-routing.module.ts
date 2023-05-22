@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home.component';
 import { RegisterComponent } from './register/register.component';
-// import { ViewComponent } from './view/view.component';
 
 const routes: Routes = [
     {
@@ -14,10 +13,6 @@ const routes: Routes = [
         path: 'new',
         component: RegisterComponent,
       },
-      // {
-      //   path: 'view/:id',
-      //   component: ViewComponent,
-      // },
       {
         path: ':id',
         component: RegisterComponent,
