@@ -24,9 +24,8 @@ export class HomeComponent implements AfterViewInit {
     private toastr: ToastrService,
     private _route: ActivatedRoute
   ) {
-    this.LoadUser();
-    this.userRole = sessionStorage.getItem('role');
-    console.log(this.userRole, 'this.userRole');
+    this.LoadList();
+
   }
   list: any;
   dataSource: any;
@@ -34,10 +33,10 @@ export class HomeComponent implements AfterViewInit {
   @ViewChild(MatSort) sort!: MatSort;
 
   ngAfterViewInit(): void {
-    this.LoadUser();
+    this.LoadList();
   }
 
-  LoadUser() {
+  LoadList() {
     this.service.GetAllJobs().subscribe(res => {
       this.list = res;
       this.dataSource = new MatTableDataSource(this.list);
@@ -61,7 +60,7 @@ export class HomeComponent implements AfterViewInit {
     console.log(id);
     this.service.DeleteJobsById(id).subscribe(result => {
       this.toastr.success('','Deleted successfully');
-      this._router.navigate(['/'])
+      this.LoadList();
     },
     err =>{
     console.log(err);
